@@ -86,13 +86,13 @@ def s_how():
     d.line((290, 300, 400, 300), fill=MUTE, width=3); d.line((880, 300, 990, 300), fill=MUTE, width=3)
     d.text((640, 225), "5 × EscrowCreate, 10 XRP each", font=F(MONO, 18), fill=MUTE, anchor="mm")
     # lock 1
-    d.rounded_rectangle((330, 400, 790, 540), 14, fill=CARD, outline=LINE)
-    d.text((350, 415), "lock 1 · Condition (secret held by the oracle)", font=F(SANS_B, 22), fill=WARN)
-    para(d, (350, 452), "Only the written rules can move a tranche to the lender: the oracle reveals a secret, EscrowFinish. It cannot reveal more than the rules allow.", F(SANS, 19), INK, 420)
+    d.rounded_rectangle((330, 390, 790, 560), 14, fill=CARD, outline=LINE)
+    d.text((350, 405), "lock 1 · Condition (secret held by the oracle)", font=F(SANS_B, 21), fill=WARN)
+    para(d, (350, 445), "Only the written rules can move a tranche to the lender: the oracle reveals a secret, EscrowFinish. It cannot reveal more than the rules allow.", F(SANS, 19), INK, 420)
     # lock 2
-    d.rounded_rectangle((810, 400, 1240, 540), 14, fill=CARD, outline=LINE)
-    d.text((830, 415), "lock 2 · CancelAfter (written in the ledger)", font=F(SANS_B, 22), fill=OK)
-    para(d, (830, 452), "Past the deadline, anyone can send every untouched tranche back to the renter: EscrowCancel. No signature of the lender or the oracle needed.", F(SANS, 19), INK, 390)
+    d.rounded_rectangle((810, 390, 1240, 560), 14, fill=CARD, outline=LINE)
+    d.text((830, 405), "lock 2 · CancelAfter (written in the ledger)", font=F(SANS_B, 21), fill=OK)
+    para(d, (830, 445), "Past the deadline, anyone can send every untouched tranche back to the renter: EscrowCancel. No signature of the lender or the oracle needed.", F(SANS, 19), INK, 390)
     d.text((44, 600), "Native XRP: no trust line, no issuer, nothing to freeze. The refund needs nobody's goodwill.", font=F(SANS, 24), fill=MUTE)
     return save(im, "s02.png")
 
@@ -102,7 +102,7 @@ def s_agreement():
     rows = [("deposit", f'{AG["deposit_xrp"]} XRP = {int(AG["deposit_xrp"]/AG["tranche_xrp"])} tranches × {AG["tranche_xrp"]}'),
             ("due", AG["due_at"][:19].replace("T", " ") + " UTC, grace 0"), ("late fee", f'{AG["late_fee_xrp_per_hour"]} XRP per started hour, cap {AG["late_fee_cap_xrp"]}'),
             ("accessories", ", ".join(f'{a["name"]} {a["value_xrp"]}' for a in AG["accessories"]) + "   (anything else: 0)"), ("cleaning", f'{AG["cleaning_fee_xrp"]} XRP'),
-            ("damage", "renter agrees, or the arbiter decides; silence before the deadline = refund"), ("arbiter", AG["arbiter"]["name"]), ("dispute window", f'{AG["dispute_window_s"]} s in this demo (48 h in the case file)')]
+            ("damage", "renter agrees or the arbiter decides; silence = refund"), ("arbiter", AG["arbiter"]["name"]), ("dispute window", f'{AG["dispute_window_s"]} s in this demo (48 h in the case file)')]
     y = 190
     for k, v in rows:
         d.text((70, y), k, font=F(MONO, 24), fill=BLUE); d.text((330, y), v, font=F(MONO, 24), fill=INK); y += 48
@@ -192,7 +192,7 @@ def s_end():
 def narrate(i, text):
     aiff = os.path.join(OUT, f"voice{i:02d}.aiff"); wav = os.path.join(OUT, f"voice{i:02d}.wav")
     subprocess.run(["say", "-v", VOICE, "-r", RATE, "-o", aiff, text], check=True)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", aiff, "-af", "asetrate=48000*0.97,aresample=48000,atempo=1.0309,equalizer=f=180:t=q:w=1:g=2,equalizer=f=3000:t=q:w=1:g=-1.5", "-ar", "48000", "-ac", "2", wav], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", aiff, "-af", "aresample=48000,asetrate=48000*0.97,aresample=48000,atempo=1.0309,equalizer=f=180:t=q:w=1:g=2,equalizer=f=3000:t=q:w=1:g=-1.5", "-ar", "48000", "-ac", "2", wav], check=True)
     dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", wav], capture_output=True, text=True).stdout.strip())
     return wav, dur
 
