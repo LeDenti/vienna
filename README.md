@@ -88,6 +88,10 @@ vienna status <id>                                                         publi
 - **Not legal advice.** Austrian consumer law on deposits is not encoded here; the rules are a demonstration of *how* such terms could be enforced, not *which* terms are lawful.
 - **Secrets live in `state/*.secrets.json`** on the oracle's machine, never committed. Lose them and nothing can move to the lender; the renter's refund is unaffected.
 
+## Other ledgers
+
+The rules engine and the case file do not depend on the ledger; only the adapter does. The plan for Solana, NEAR and Casper, with what each port must keep and where each one differs, is in [docs/PORTING.md](docs/PORTING.md). No port is listed here until it has its three measured runs.
+
 ## Prior work, disclosed
 
 The author has built XRPL escrow prototypes before (an open-source payment-by-proof project). This repository was written from scratch during the hackathon: no code was copied; the crypto-condition encoder was rewritten from the specification and is checked against an independent library in the tests.
