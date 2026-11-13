@@ -19,30 +19,31 @@ ul{margin:8px 0 0;padding-left:18px;color:var(--mute);font-size:13px}li b{color:
 .legend{color:var(--mute);font-size:13px;margin-left:auto}.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin:0 4px 0 12px;vertical-align:-1px}
 a{color:#9bb7ff}
 </style></head><body>
-<header><h1>vienna <small>a deposit you get back automatically · XRPL testnet</small></h1>
+<header><h1>vienna <small id="sub">a deposit you get back automatically</small></h1>
 <div class="legend"><i style="background:var(--lock)"></i>locked <i style="background:var(--ok)"></i>back to renter <i style="background:var(--bad)"></i>kept by lender</div></header>
 <main id="m"></main>
 <script>
 const X=1e6, xrp=d=>(d/X).toFixed(6).replace(/\.?0+$/,'');
-const tx=h=>`https://testnet.xrpl.org/transactions/${h}`;
+const EXPL={xrpl:{tx:h=>`https://testnet.xrpl.org/transactions/${h}`,acct:a=>`https://testnet.xrpl.org/accounts/${a}`,coin:'XRP'},casper:{tx:h=>`https://testnet.cspr.live/deploy/${h}`,acct:a=>`https://testnet.cspr.live/account/${a}`,coin:'CSPR'}};
+fetch('/api/config').then(r=>r.json()).then(c=>{document.getElementById('sub').textContent=`a deposit you get back automatically · ${c.chain} testnet`;});
 async function draw(){
   const rs=await (await fetch('/api/rentals')).json(); const m=document.getElementById('m'); m.innerHTML='';
-  for(const r of rs){const a=r.agreement, v=r.verdicts.at(-1); const n=a.deposit_xrp/a.tranche_xrp;
+  for(const r of rs){const a=r.agreement, v=r.verdicts.at(-1); const n=a.deposit_xrp/a.tranche_xrp; const E=EXPL[a.chain||'xrpl'], tx=E.tx, COIN=E.coin;
     const cells=r.tranches.map(t=>{const h=t.tx.cancel||t.tx.finish||t.tx.create; const label=t.status==='to_lender'?'→ lender':t.status==='to_renter'?'→ renter':t.status==='locked'?'locked':'—';
       return h?`<a class="t ${t.status}" href="${tx(h)}" target="_blank" title="${t.status} · ${h}">${a.tranche_xrp}</a>`:`<span class="t ${t.status}">${a.tranche_xrp}</span>`;}).join('');
-    const lines=v?v.lines.map(l=>`<li><b>${l.kind}</b> ${xrp(l.drops)} XRP — ${l.basis}</li>`).join(''):'';
+    const lines=v?v.lines.map(l=>`<li><b>${l.kind}</b> ${xrp(l.drops)} ${COIN} — ${l.basis}</li>`).join(''):'';
     const esc=v?v.escalations.map(e=>`<li><b>escalated</b> ${e.what} → ${e.to} (${e.reason})</li>`).join(''):'';
     const notes=v?v.notes.map(x=>`<li>${x}</li>`).join(''):'';
     m.insertAdjacentHTML('beforeend',`<div class="card"><h2>${a.item}</h2><div class="id">${a.id}</div>
-      <div class="row"><span>deposit</span><b>${a.deposit_xrp} XRP = ${n} × ${a.tranche_xrp}</b></div>
+      <div class="row"><span>deposit</span><b>${a.deposit_xrp} ${COIN} = ${n} × ${a.tranche_xrp}</b></div>
       <div class="row"><span>due</span><b>${a.due_at.replace('T',' ').slice(0,19)}</b></div>
       <div class="row"><span>status</span><span class="st ${v?v.status:'open'}">${v?v.status:'open'}</span></div>
       <div class="tr" style="grid-template-columns:repeat(${Math.min(n,10)},1fr)">${cells}</div>
-      ${v?`<div class="row"><span>lender keeps</span><b>${xrp(v.retention_drops)} XRP (${v.tranches_to_lender} tranche${v.tranches_to_lender===1?'':'s'})</b></div>
-      <div class="row"><span>renter gets back</span><b>${xrp(v.refund_drops)} XRP</b></div>
+      ${v?`<div class="row"><span>lender keeps</span><b>${xrp(v.retention_drops)} ${COIN} (${v.tranches_to_lender} tranche${v.tranches_to_lender===1?'':'s'})</b></div>
+      <div class="row"><span>renter gets back</span><b>${xrp(v.refund_drops)} ${COIN}</b></div>
       <div class="row"><span>refund guaranteed after</span><b>${v.cancel_after.replace('T',' ').slice(0,19)}</b></div>`:''}
       <ul>${lines}${esc}${notes}</ul>
-      <div class="row" style="margin-top:10px;color:var(--mute);font-size:12px"><span>renter <a href="https://testnet.xrpl.org/accounts/${a.renter}" target="_blank">${(a.renter||'').slice(0,10)}…</a></span><span>lender <a href="https://testnet.xrpl.org/accounts/${a.lender}" target="_blank">${(a.lender||'').slice(0,10)}…</a></span></div>
+      <div class="row" style="margin-top:10px;color:var(--mute);font-size:12px"><span>renter <a href="${E.acct(a.renter)}" target="_blank">${(a.renter||'').slice(0,10)}…</a></span><span>lender <a href="${E.acct(a.lender)}" target="_blank">${(a.lender||'').slice(0,10)}…</a></span></div>
     </div>`);}
 }
 draw(); setInterval(draw,3000);

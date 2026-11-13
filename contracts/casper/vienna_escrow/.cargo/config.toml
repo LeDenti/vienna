@@ -1,0 +1,3 @@
+# Host functions (casper_* in casper-contract's ext_ffi) are wasm imports resolved by the node at run time.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "link-arg=--import-undefined"]

@@ -6,8 +6,10 @@ import { readdirSync, readFileSync, existsSync } from "node:fs";
 const DIR = new URL("../state/", import.meta.url).pathname;
 const WEB = new URL("../web/", import.meta.url).pathname;
 const PORT = Number(process.env.PORT ?? 8790);
+const CHAIN = process.env.VIENNA_CHAIN || "xrpl"; // which testnet the header names; each record carries its own chain
 createServer((req, res) => {
   const url = new URL(req.url, "http://x");
+  if (url.pathname === "/api/config") { res.writeHead(200, { "content-type": "application/json" }); return res.end(JSON.stringify({ chain: CHAIN })); }
   if (url.pathname === "/api/rentals") {
     const files = readdirSync(DIR).filter((f) => f.endsWith(".json") && !f.includes(".secrets.") && !f.includes(".wallets."));
     const all = files.map((f) => JSON.parse(readFileSync(DIR + f, "utf8"))).sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
