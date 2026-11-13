@@ -4,6 +4,8 @@
 
 Built solo, remotely, in 24 hours at the proximata × HOIV × START Vienna hackathon *Building Better Worlds* (Vienna, 13–14 November 2026), crypto track with Crypto Club Vienna: *Bringing crypto to everyday life*.
 
+**Demo video (2:33):** https://youtu.be/wWH-zqQhDpI — every terminal line and screenshot in it comes from the testnet runs in [`measures/`](measures/).
+
 > Rent an e-bike for a Saturday in Vienna and the shop blocks €200 on your card for up to a week. No credit card: no bike. A scratch at the end: a chargeback fight nobody wins.
 > With **vienna** the €200 sits in five escrows of €40 on the ledger. Only the written rules can move one to the shop. After the deadline, *anyone* can send the rest back to you — the refund needs nobody's goodwill, not even ours.
 
