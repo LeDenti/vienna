@@ -1,0 +1,23 @@
+{
+  "name": "vienna",
+  "version": "1.0.0",
+  "description": "a deposit you get back automatically — everyday rental deposits as tranche escrows on the XRP Ledger, settled by written rules and a case file",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test test/",
+    "cases": "node tools/make_cases.mjs",
+    "demo": "node bin/vienna.mjs demo",
+    "serve": "node bin/serve.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "five-bells-condition": "^5.0.1",
+    "xrpl": "^5.3.0"
+  },
+  "bin": {
+    "vienna": "bin/vienna.mjs"
+  }
+}

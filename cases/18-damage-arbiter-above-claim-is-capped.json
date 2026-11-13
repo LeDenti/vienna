@@ -1,0 +1,52 @@
+{
+  "name": "18-damage-arbiter-above-claim-is-capped",
+  "agreement": {
+    "id": "ebike-0001",
+    "item": "e-bike (Kaution)",
+    "deposit_xrp": 200,
+    "tranche_xrp": 20,
+    "due_at": "2026-11-14T18:00:00Z",
+    "grace_min": 30,
+    "dispute_window_h": 48,
+    "late_fee_xrp_per_hour": 5,
+    "late_fee_cap_xrp": 60,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 15
+      },
+      {
+        "name": "charger",
+        "value_xrp": 30
+      },
+      {
+        "name": "helmet",
+        "value_xrp": 25
+      }
+    ],
+    "cleaning_fee_xrp": 20,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk"
+    }
+  },
+  "report": {
+    "returned_at": "2026-11-14T17:00:00Z",
+    "damage": [
+      {
+        "desc": "scratched frame",
+        "claimed_xrp": 50,
+        "renter_agrees": false
+      }
+    ]
+  },
+  "now": "2026-11-15T10:00:00Z",
+  "arbiter": {
+    "for": "scratched frame",
+    "damage_xrp": 80
+  },
+  "expected": {
+    "status": "settled",
+    "retention_drops": 40000000,
+    "tranches_to_lender": 2
+  }
+}

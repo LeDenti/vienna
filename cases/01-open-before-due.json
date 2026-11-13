@@ -1,0 +1,40 @@
+{
+  "name": "01-open-before-due",
+  "agreement": {
+    "id": "ebike-0001",
+    "item": "e-bike (Kaution)",
+    "deposit_xrp": 200,
+    "tranche_xrp": 20,
+    "due_at": "2026-11-14T18:00:00Z",
+    "grace_min": 30,
+    "dispute_window_h": 48,
+    "late_fee_xrp_per_hour": 5,
+    "late_fee_cap_xrp": 60,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 15
+      },
+      {
+        "name": "charger",
+        "value_xrp": 30
+      },
+      {
+        "name": "helmet",
+        "value_xrp": 25
+      }
+    ],
+    "cleaning_fee_xrp": 20,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk"
+    }
+  },
+  "report": null,
+  "now": "2026-11-14T17:00:00Z",
+  "arbiter": null,
+  "expected": {
+    "status": "open",
+    "retention_drops": 0,
+    "tranches_to_lender": 0
+  }
+}

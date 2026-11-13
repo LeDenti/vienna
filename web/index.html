@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>vienna · deposits</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#0f1115;--card:#171a21;--ink:#e8e9ec;--mute:#8b90a0;--ok:#3ccf7a;--warn:#f5b73b;--bad:#ef5b5b;--lock:#4a5168;--line:#262b36}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 -apple-system,Inter,Helvetica,Arial,sans-serif}
+header{padding:22px 28px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:18px}
+h1{margin:0;font-size:22px;letter-spacing:.02em}h1 small{color:var(--mute);font-weight:400;margin-left:10px}
+main{padding:22px 28px;display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h2{margin:0 0 4px;font-size:17px}.id{color:var(--mute);font-size:12px;font-family:ui-monospace,Menlo,monospace}
+.row{display:flex;justify-content:space-between;gap:12px;margin:6px 0;font-size:14px}.row b{font-weight:600}
+.tr{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:12px 0}
+.t{height:34px;border-radius:7px;background:var(--lock);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;text-decoration:none}
+.t.to_lender{background:var(--bad)}.t.to_renter{background:var(--ok)}.t.unlocked{background:transparent;border:1px dashed var(--lock)}
+.st{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;background:#222838;color:var(--ink)}
+.st.returned_clean,.st.expired_refund{background:#163a28;color:var(--ok)}.st.settled,.st.forfeit{background:#3a1a1a;color:#ffb3b3}.st.awaiting_arbiter,.st.overdue{background:#3a2f12;color:var(--warn)}
+ul{margin:8px 0 0;padding-left:18px;color:var(--mute);font-size:13px}li b{color:var(--ink)}
+.legend{color:var(--mute);font-size:13px;margin-left:auto}.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin:0 4px 0 12px;vertical-align:-1px}
+a{color:#9bb7ff}
+</style></head><body>
+<header><h1>vienna <small>a deposit you get back automatically · XRPL testnet</small></h1>
+<div class="legend"><i style="background:var(--lock)"></i>locked <i style="background:var(--ok)"></i>back to renter <i style="background:var(--bad)"></i>kept by lender</div></header>
+<main id="m"></main>
+<script>
+const X=1e6, xrp=d=>(d/X).toFixed(6).replace(/\.?0+$/,'');
+const tx=h=>`https://testnet.xrpl.org/transactions/${h}`;
+async function draw(){
+  const rs=await (await fetch('/api/rentals')).json(); const m=document.getElementById('m'); m.innerHTML='';
+  for(const r of rs){const a=r.agreement, v=r.verdicts.at(-1); const n=a.deposit_xrp/a.tranche_xrp;
+    const cells=r.tranches.map(t=>{const h=t.tx.cancel||t.tx.finish||t.tx.create; const label=t.status==='to_lender'?'→ lender':t.status==='to_renter'?'→ renter':t.status==='locked'?'locked':'—';
+      return h?`<a class="t ${t.status}" href="${tx(h)}" target="_blank" title="${t.status} · ${h}">${a.tranche_xrp}</a>`:`<span class="t ${t.status}">${a.tranche_xrp}</span>`;}).join('');
+    const lines=v?v.lines.map(l=>`<li><b>${l.kind}</b> ${xrp(l.drops)} XRP — ${l.basis}</li>`).join(''):'';
+    const esc=v?v.escalations.map(e=>`<li><b>escalated</b> ${e.what} → ${e.to} (${e.reason})</li>`).join(''):'';
+    const notes=v?v.notes.map(x=>`<li>${x}</li>`).join(''):'';
+    m.insertAdjacentHTML('beforeend',`<div class="card"><h2>${a.item}</h2><div class="id">${a.id}</div>
+      <div class="row"><span>deposit</span><b>${a.deposit_xrp} XRP = ${n} × ${a.tranche_xrp}</b></div>
+      <div class="row"><span>due</span><b>${a.due_at.replace('T',' ').slice(0,19)}</b></div>
+      <div class="row"><span>status</span><span class="st ${v?v.status:'open'}">${v?v.status:'open'}</span></div>
+      <div class="tr" style="grid-template-columns:repeat(${Math.min(n,10)},1fr)">${cells}</div>
+      ${v?`<div class="row"><span>lender keeps</span><b>${xrp(v.retention_drops)} XRP (${v.tranches_to_lender} tranche${v.tranches_to_lender===1?'':'s'})</b></div>
+      <div class="row"><span>renter gets back</span><b>${xrp(v.refund_drops)} XRP</b></div>
+      <div class="row"><span>refund guaranteed after</span><b>${v.cancel_after.replace('T',' ').slice(0,19)}</b></div>`:''}
+      <ul>${lines}${esc}${notes}</ul>
+      <div class="row" style="margin-top:10px;color:var(--mute);font-size:12px"><span>renter <a href="https://testnet.xrpl.org/accounts/${a.renter}" target="_blank">${(a.renter||'').slice(0,10)}…</a></span><span>lender <a href="https://testnet.xrpl.org/accounts/${a.lender}" target="_blank">${(a.lender||'').slice(0,10)}…</a></span></div>
+    </div>`);}
+}
+draw(); setInterval(draw,3000);
+</script></body></html>
