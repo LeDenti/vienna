@@ -92,6 +92,26 @@ vienna status <id>                                                         publi
 
 The author has built XRPL escrow prototypes before (an open-source payment-by-proof project). This repository was written from scratch during the hackathon: no code was copied; the crypto-condition encoder was rewritten from the specification and is checked against an independent library in the tests.
 
+## Setup, environment, architecture, assumptions
+
+**Setup.** Node 20 or later, `npm install`. No database, no build step, no account anywhere: `npm run demo -- late` asks the XRPL testnet faucet for three wallets and keeps their seeds in `state/demo.wallets.json` (git-ignored). `.env.example` lists the two variables (`XRPL_URL`, `PORT`); the defaults are the testnet and port 8790.
+
+**Architecture.** Four small modules and no framework:
+
+```
+agreement.json ─┐
+return report  ─┼─▶ rules.mjs (pure) ─▶ verdict: tranches_to_lender, lines, escalations
+arbiter verdict ┘          ▲
+                           │ judged by cases/*.json (npm test)
+oracle.mjs ── holds one secret per tranche; on a verdict reveals exactly k of them
+ledger.mjs ── EscrowCreate ×N (Condition + CancelAfter) · EscrowFinish (fulfilment) · EscrowCancel (anyone)
+serve.mjs  ── dashboard reading state/*.json (public records only)
+```
+
+The oracle never holds funds. The renter signs the N `EscrowCreate`; the oracle signs `EscrowFinish` (it pays the fee) and, as a courtesy, the `EscrowCancel` after the deadline, which anyone else could send instead.
+
+**Assumptions.** Native XRP on testnet; a 48 h dispute window in real life (75 s in the demo); the lender's report is taken as filed for late and missing items (priced in advance), while damage needs the renter or the arbiter; one tranche is the unit of retention; clocks are the ledger's close times (10 s resolution), not the oracle's.
+
 ## Layout
 
 ```

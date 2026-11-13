@@ -10,7 +10,7 @@
 import xrpl from "xrpl";
 import { finishFeeDrops } from "./condition.mjs";
 
-export const TESTNET = "wss://s.altnet.rippletest.net:51233";
+export const TESTNET = process.env.XRPL_URL || "wss://s.altnet.rippletest.net:51233";
 export const explorerTx = (hash) => `https://testnet.xrpl.org/transactions/${hash}`;
 export const explorerAccount = (addr) => `https://testnet.xrpl.org/accounts/${addr}`;
 
