@@ -23,8 +23,8 @@ export async function connect(url = TESTNET) {
 export const rippleTime = (ms) => xrpl.unixTimeToRippleTime(ms);
 
 export async function balanceDrops(client, address) {
-  try { return BigInt(await client.getXrpBalance(address)) * 1_000_000n; }
-  catch { return 0n; }
+  try { return Math.round(Number(await client.getXrpBalance(address)) * 1_000_000); }
+  catch { return 0; }
 }
 
 /** Fund (or top up) a testnet wallet from the faucet. */
@@ -32,7 +32,7 @@ export async function fundedWallet(client, seed) {
   if (seed) {
     const w = xrpl.Wallet.fromSeed(seed);
     const bal = await balanceDrops(client, w.address);
-    if (bal >= 20_000_000n) return w;
+    if (bal >= 20_000_000) return w;
     await client.fundWallet(w);
     return w;
   }

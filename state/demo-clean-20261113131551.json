@@ -1,0 +1,120 @@
+{
+  "agreement": {
+    "id": "demo-clean-20261113131551",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "rnriRKH8Xtay54dVq8Eyqk4FnHfbpQRqVj",
+    "lender": "rNXMUw8BYUJMNf1KxsTukPniTcZiqtPaGp",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-13T13:16:16.437Z",
+    "grace_s": 0,
+    "dispute_window_s": 75,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "rDechGriLKWH9V9djfgadjvPBpzbyk5bsb"
+    }
+  },
+  "tranches": [
+    {
+      "i": 0,
+      "condition": "A02580202B95F474BD56B22E4FEA3D9782AFFE2EBCA95E54ACE6907063F601AC65F9090E810120",
+      "sequence": 22293731,
+      "status": "to_renter",
+      "tx": {
+        "create": "77314BFC998DCDB9403655AB2394EBEE5134D138460C5364F4A47E42858C5DE0",
+        "cancel": "12F6E7BA6355810DDB400D81794DC5559D8CF01B715052E092863F6BBC3080E0"
+      }
+    },
+    {
+      "i": 1,
+      "condition": "A02580207253539086EBD4D84905F68248D825A4605FAF7DF3B0886F3DA17045ECF3A275810120",
+      "sequence": 22293732,
+      "status": "to_renter",
+      "tx": {
+        "create": "FC6F633E27707036125E749FBA1EC5217BEBB5780C16AC786A3D16B36E479190",
+        "cancel": "57038598DF03865F1A82295D94D0D8B5DB242BAFEE9F0EA3297CC135504FE90A"
+      }
+    },
+    {
+      "i": 2,
+      "condition": "A025802048F33E3D2DEA17338375EFF4A24645ED385505A69055D5195F5D21B27758921C810120",
+      "sequence": 22293733,
+      "status": "to_renter",
+      "tx": {
+        "create": "39CE649E73E428F18E3FA44F4D2D5503E252C0B6203105B4D8E32B3F123D5493",
+        "cancel": "4456D759DB92C8435E09D3BF9BAA3B0431A6155C338B1DFA3A59E73EBC263C9F"
+      }
+    },
+    {
+      "i": 3,
+      "condition": "A02580204E18CC0E112E4AB2CE75E968B8E8A31C2DF0FEF7AF379311F9E57DFEE4C34200810120",
+      "sequence": 22293734,
+      "status": "to_renter",
+      "tx": {
+        "create": "D2B11A6F85BC7ACF03F1F0192114FCE9409DBCCBCB5C14267EDF4F9333F51846",
+        "cancel": "062CD73E205D9F0B1987F260BC7B91B6DD5FF65F4F09D88EAE5210B221A750D1"
+      }
+    },
+    {
+      "i": 4,
+      "condition": "A02580202F40161FF42A45B0119B3B344BC80225A5539BFEAA90619B520AB6724581B52F810120",
+      "sequence": 22293735,
+      "status": "to_renter",
+      "tx": {
+        "create": "B18A7DA5F303D24FC800CBF8AD87210A0426B7EC968D79F884AA225C4E8DA46F",
+        "cancel": "7FAD77C8C22CA984941A16B8B875D2D3AEBB2625BC5218F8A73932923444A455"
+      }
+    }
+  ],
+  "report": {
+    "returned_at": "2026-11-13T13:16:02.240Z",
+    "filed_by": "rNXMUw8BYUJMNf1KxsTukPniTcZiqtPaGp"
+  },
+  "arbiter": null,
+  "verdicts": [
+    {
+      "id": "demo-clean-20261113131551",
+      "status": "returned_clean",
+      "now": "2026-11-13T13:16:02.241Z",
+      "deadline": "2026-11-13T13:16:16.437Z",
+      "cancel_after": "2026-11-13T13:17:31.437Z",
+      "retention_drops": 0,
+      "tranches_to_lender": 0,
+      "tranches_to_renter": 5,
+      "refund_drops": 50000000,
+      "lines": [],
+      "escalations": [],
+      "notes": []
+    },
+    {
+      "id": "demo-clean-20261113131551",
+      "status": "expired_refund",
+      "now": "2026-11-13T13:17:39.548Z",
+      "deadline": "2026-11-13T13:16:16.437Z",
+      "cancel_after": "2026-11-13T13:17:31.437Z",
+      "retention_drops": 0,
+      "tranches_to_lender": 0,
+      "tranches_to_renter": 5,
+      "refund_drops": 50000000,
+      "lines": [],
+      "escalations": [],
+      "notes": [
+        "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+      ]
+    }
+  ],
+  "created_at": "2026-11-13T13:15:53.564Z"
+}

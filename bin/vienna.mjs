@@ -36,7 +36,7 @@ async function demo(scenario, n) {
   const renter = await L.fundedWallet(client, seeds.renter), lender = await L.fundedWallet(client, seeds.lender), orc = await L.fundedWallet(client, seeds.oracle);
   mkdirSync(new URL("../state/", import.meta.url).pathname, { recursive: true });
   writeFileSync(wf, JSON.stringify({ renter: renter.seed, lender: lender.seed, oracle: orc.seed }, null, 2));
-  const bal = async () => ({ renter: toXrp(Number(await L.balanceDrops(client, renter.address))), lender: toXrp(Number(await L.balanceDrops(client, lender.address))) });
+  const bal = async () => ({ renter: toXrp(await L.balanceDrops(client, renter.address)), lender: toXrp(await L.balanceDrops(client, lender.address)) });
   log("wallets", { renter: renter.address, lender: lender.address, oracle: orc.address }, await bal());
 
   // The agreement, priced BEFORE the key changes hands. Short clocks so the whole year fits in three minutes.

@@ -1,0 +1,160 @@
+{
+  "agreement": {
+    "id": "demo-contested-20261113131747",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "rnriRKH8Xtay54dVq8Eyqk4FnHfbpQRqVj",
+    "lender": "rNXMUw8BYUJMNf1KxsTukPniTcZiqtPaGp",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-13T13:18:12.474Z",
+    "grace_s": 0,
+    "dispute_window_s": 75,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "rDechGriLKWH9V9djfgadjvPBpzbyk5bsb"
+    }
+  },
+  "tranches": [
+    {
+      "i": 0,
+      "condition": "A025802061907DE2B4BE1D2D7C8A82A2EAD38D9F70DC250253CBFFEBD35A03833E418B69810120",
+      "sequence": 22293736,
+      "status": "to_lender",
+      "tx": {
+        "create": "C6DEFECDCAF3D7104B532D130A1AAEDA415EF17A8D5E1BD2022048D1DEE0B3C1",
+        "finish": "09D7BC7A5BA82BF690D5C4C2F874E531250BA068A0C7E3D9CF2FAE29D55E1234"
+      }
+    },
+    {
+      "i": 1,
+      "condition": "A025802077F81F4DF7BC1A867B663B49642A6368471A6C552A33D69143862A02F41DA85B810120",
+      "sequence": 22293737,
+      "status": "to_lender",
+      "tx": {
+        "create": "BE04019EA962741FF575513C73646034AB7E8CAE5D9C711E48CFE23C6D1A22DE",
+        "finish": "E3AFF71C9D5F623F5F6275848B8D96130B4D0CC61FDA1EE1EF94C43517821521"
+      }
+    },
+    {
+      "i": 2,
+      "condition": "A0258020F9E6B93E8ADDC670F93B79C279791A0A37E51AE1764BD633B8B0D94BD31616A8810120",
+      "sequence": 22293738,
+      "status": "to_renter",
+      "tx": {
+        "create": "DAA1CF6099D0292286A15FE95DE200569D09B3FEF5F977AB29B2AB0C6B83FC09",
+        "cancel": "CC875250C8D823CFC842F417DF4E9BBA213C859731F39B29D7F9E9B61517954F"
+      }
+    },
+    {
+      "i": 3,
+      "condition": "A02580204DB61E48687358EAC56CA96A964262D343BCCDBBD6A99AF013F51AA52BD14E8C810120",
+      "sequence": 22293739,
+      "status": "to_renter",
+      "tx": {
+        "create": "CD6DE03E9A37804D3704E7B3C7D3CFCCE82EDC2B42935995B850A234E32094FB",
+        "cancel": "18E5B1D227DC23D19D9B9843167FB5F78B9B21CA3E7C34E5540568BE5071E03F"
+      }
+    },
+    {
+      "i": 4,
+      "condition": "A025802090234538C65B6CF28950113C11E78BFE677138D89764E591891E803D44C51BAF810120",
+      "sequence": 22293740,
+      "status": "to_renter",
+      "tx": {
+        "create": "828D1E330519767E88CFFEAB34868D37C5ADAA0A309D306BA60A352924DE983C",
+        "cancel": "EA9E8A2972484619B3C5BB0E26B17F1745B8DB5F178E12C79335C9AF7F2D4CF3"
+      }
+    }
+  ],
+  "report": {
+    "returned_at": "2026-11-13T13:17:56.996Z",
+    "damage": [
+      {
+        "desc": "scratched frame",
+        "claimed_xrp": 30,
+        "renter_agrees": false
+      }
+    ],
+    "filed_by": "rNXMUw8BYUJMNf1KxsTukPniTcZiqtPaGp"
+  },
+  "arbiter": {
+    "for": "scratched frame",
+    "damage_xrp": 20,
+    "by": "rDechGriLKWH9V9djfgadjvPBpzbyk5bsb",
+    "signed_at": "2026-11-13T13:18:04.998Z"
+  },
+  "verdicts": [
+    {
+      "id": "demo-contested-20261113131747",
+      "status": "awaiting_arbiter",
+      "now": "2026-11-13T13:17:56.996Z",
+      "deadline": "2026-11-13T13:18:12.474Z",
+      "cancel_after": "2026-11-13T13:19:27.474Z",
+      "retention_drops": 0,
+      "tranches_to_lender": 0,
+      "tranches_to_renter": 5,
+      "refund_drops": 50000000,
+      "lines": [],
+      "escalations": [
+        {
+          "what": "damage:scratched frame",
+          "to": "Crypto Club Vienna desk",
+          "claimed_drops": 30000000,
+          "deadline": "2026-11-13T13:19:27.474Z",
+          "reason": "renter does not agree; silence before cancel_after = refund"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "id": "demo-contested-20261113131747",
+      "status": "settled",
+      "now": "2026-11-13T13:18:04.998Z",
+      "deadline": "2026-11-13T13:18:12.474Z",
+      "cancel_after": "2026-11-13T13:19:27.474Z",
+      "retention_drops": 20000000,
+      "tranches_to_lender": 2,
+      "tranches_to_renter": 3,
+      "refund_drops": 30000000,
+      "lines": [
+        {
+          "kind": "damage",
+          "drops": 20000000,
+          "basis": "\"scratched frame\" set by arbiter Crypto Club Vienna desk at 20 XRP (claim capped)"
+        }
+      ],
+      "escalations": [],
+      "notes": []
+    },
+    {
+      "id": "demo-contested-20261113131747",
+      "status": "expired_refund",
+      "now": "2026-11-13T13:19:32.309Z",
+      "deadline": "2026-11-13T13:18:12.474Z",
+      "cancel_after": "2026-11-13T13:19:27.474Z",
+      "retention_drops": 0,
+      "tranches_to_lender": 0,
+      "tranches_to_renter": 5,
+      "refund_drops": 50000000,
+      "lines": [],
+      "escalations": [],
+      "notes": [
+        "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+      ]
+    }
+  ],
+  "created_at": "2026-11-13T13:17:49.628Z"
+}
