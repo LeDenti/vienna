@@ -90,7 +90,7 @@ vienna status <id>                                                         publi
 
 ## Other ledgers
 
-The rules engine and the case file do not depend on the ledger; only the adapter does. The plan for Solana, NEAR and Casper, with what each port must keep and where each one differs, is in [docs/PORTING.md](docs/PORTING.md). No port is listed here until it has its three measured runs.
+The rules engine and the case file do not depend on the ledger; only the adapter does. The plan for Solana, NEAR, Ethereum, Bitcoin and Casper, why none of them is built yet, what each port must keep and where each one bends a rule, is in [docs/PORTING.md](docs/PORTING.md). No port is listed here until it has its three measured runs.
 
 ## Prior work, disclosed
 
