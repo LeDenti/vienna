@@ -1,0 +1,14 @@
+[package]
+name = "vienna_escrow_tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dev-dependencies]
+casper-engine-test-support = "8.1.1"
+casper-execution-engine = "8.1.1"
+casper-types = "6.1.0"
+sha2 = "0.10"

@@ -1,0 +1,17 @@
+[package]
+name = "vienna_escrow"
+version = "0.1.0"
+edition = "2021"
+description = "vienna on Casper: one purse per tranche, finish with a sha256 preimage before cancel_after, refund by anyone after"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+
+[dependencies]
+casper-contract = { version = "5.1.1", default-features = false }
+wee_alloc = "0.4.5"
+casper-types = "6.1.0"
+sha2 = { version = "0.10", default-features = false }

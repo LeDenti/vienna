@@ -1,0 +1,406 @@
+{
+  "scenario": "contested",
+  "id": "casper-demo-contested-20261114055208",
+  "chain": "casper",
+  "coin": "CSPR",
+  "wallets": {
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "oracle": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+  },
+  "balances_before": {
+    "renter": "155",
+    "lender": "30",
+    "oracle": "415.53"
+  },
+  "agreement": {
+    "id": "casper-demo-contested-20261114055208",
+    "chain": "casper",
+    "coin": "CSPR",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-14T05:54:38.913Z",
+    "grace_s": 0,
+    "dispute_window_s": 180,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+    }
+  },
+  "create": [
+    {
+      "label": "lock",
+      "hash": "d34fef7ea3391424b68c38a31f1220976a7a16b707c3f865f9a2744f388972dd",
+      "block": 9826253,
+      "cost": "5000000000",
+      "consumed": "4752300126",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/d34fef7ea3391424b68c38a31f1220976a7a16b707c3f865f9a2744f388972dd",
+      "charged": "4814225095",
+      "sequence": "casper-demo-contested-20261114055208/0"
+    },
+    {
+      "label": "lock",
+      "hash": "34fc7d02f431edfe57c15839153c875a34817a385ce4dd6db183d3fd995d4473",
+      "block": 9826254,
+      "cost": "5000000000",
+      "consumed": "4752300126",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/34fc7d02f431edfe57c15839153c875a34817a385ce4dd6db183d3fd995d4473",
+      "charged": "4814225095",
+      "sequence": "casper-demo-contested-20261114055208/1"
+    },
+    {
+      "label": "lock",
+      "hash": "43e6ce30605f0c6042187eaf976f0395551bd126d644b8ed95d209fcf59a8951",
+      "block": 9826255,
+      "cost": "5000000000",
+      "consumed": "4752300126",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/43e6ce30605f0c6042187eaf976f0395551bd126d644b8ed95d209fcf59a8951",
+      "charged": "4814225095",
+      "sequence": "casper-demo-contested-20261114055208/2"
+    },
+    {
+      "label": "lock",
+      "hash": "41a2134c45236cfcf40ed2f4c25bcc8fe8646f85d6560f3d7e4167b5eeae9222",
+      "block": 9826256,
+      "cost": "5000000000",
+      "consumed": "4752300126",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/41a2134c45236cfcf40ed2f4c25bcc8fe8646f85d6560f3d7e4167b5eeae9222",
+      "charged": "4814225095",
+      "sequence": "casper-demo-contested-20261114055208/3"
+    },
+    {
+      "label": "lock",
+      "hash": "b5b1e34c1c3e6dcc8a5e84601941752e517258b7d345cb0009a7faf3f874f708",
+      "block": 9826257,
+      "cost": "5000000000",
+      "consumed": "4752300126",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/b5b1e34c1c3e6dcc8a5e84601941752e517258b7d345cb0009a7faf3f874f708",
+      "charged": "4814225095",
+      "sequence": "casper-demo-contested-20261114055208/4"
+    }
+  ],
+  "finish": [
+    {
+      "label": "finish",
+      "hash": "a3bb6aa58c6e55c5caef332cc5ca210858df344ce5787755bebf6625a635c509",
+      "block": 9826259,
+      "cost": "3500000000",
+      "consumed": "2925822353",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/a3bb6aa58c6e55c5caef332cc5ca210858df344ce5787755bebf6625a635c509",
+      "charged": "3069366765",
+      "sequence": "casper-demo-contested-20261114055208/0"
+    },
+    {
+      "label": "finish",
+      "hash": "99f134bd637b77b4430d66b622ed2ec506cebb64c97c08455daa0e6df79f62e3",
+      "block": 9826260,
+      "cost": "3500000000",
+      "consumed": "2925822353",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/99f134bd637b77b4430d66b622ed2ec506cebb64c97c08455daa0e6df79f62e3",
+      "charged": "3069366765",
+      "sequence": "casper-demo-contested-20261114055208/1"
+    }
+  ],
+  "cancel": [
+    {
+      "label": "cancel",
+      "hash": "a44eae7c1febb2a5a224f8bbc6369d22fd3ebbfe223e9f744e1e1a061257f38d",
+      "block": 9826295,
+      "cost": "3500000000",
+      "consumed": "2921971413",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/a44eae7c1febb2a5a224f8bbc6369d22fd3ebbfe223e9f744e1e1a061257f38d",
+      "charged": "3066478560",
+      "sequence": "casper-demo-contested-20261114055208/2"
+    },
+    {
+      "label": "cancel",
+      "hash": "1a5ad6f328e65201ce82e98bc440b4b9ed4de192e6539351842e7ef026893864",
+      "block": 9826296,
+      "cost": "3500000000",
+      "consumed": "2921971413",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/1a5ad6f328e65201ce82e98bc440b4b9ed4de192e6539351842e7ef026893864",
+      "charged": "3066478560",
+      "sequence": "casper-demo-contested-20261114055208/3"
+    },
+    {
+      "label": "cancel",
+      "hash": "6428d3efcb7983f0b9abf07424984443e7e36543c0abb7972baf96691c6ac3c6",
+      "block": 9826297,
+      "cost": "3500000000",
+      "consumed": "2921971413",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/6428d3efcb7983f0b9abf07424984443e7e36543c0abb7972baf96691c6ac3c6",
+      "charged": "3066478560",
+      "sequence": "casper-demo-contested-20261114055208/4"
+    }
+  ],
+  "verdicts": [
+    {
+      "label": "return report: damage claimed 30 CSPR, renter disagrees",
+      "verdict": {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "awaiting_arbiter",
+        "now": "2026-11-14T05:52:53.320Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [
+          {
+            "what": "damage:scratched frame",
+            "to": "Crypto Club Vienna desk",
+            "claimed_drops": 30000000,
+            "deadline": "2026-11-14T05:57:38.913Z",
+            "reason": "renter does not agree; silence before cancel_after = refund"
+          }
+        ],
+        "notes": []
+      }
+    },
+    {
+      "label": "arbiter verdict: 20 CSPR",
+      "verdict": {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "settled",
+        "now": "2026-11-14T05:53:01.323Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 20000000,
+        "tranches_to_lender": 2,
+        "tranches_to_renter": 3,
+        "refund_drops": 30000000,
+        "lines": [
+          {
+            "kind": "damage",
+            "drops": 20000000,
+            "basis": "\"scratched frame\" set by arbiter Crypto Club Vienna desk at 20 XRP (claim capped)"
+          }
+        ],
+        "escalations": [],
+        "notes": []
+      }
+    },
+    {
+      "label": "after cancel_after",
+      "verdict": {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "expired_refund",
+        "now": "2026-11-14T05:57:52.344Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": [
+          "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+        ]
+      }
+    }
+  ],
+  "open_escrows_left": 0,
+  "cost_units": {
+    "lock": "24071125475",
+    "finish": "6138733530",
+    "cancel": "9199435680",
+    "unit": "1e-9 CSPR"
+  },
+  "balances": {
+    "renter": "110.9289",
+    "lender": "50",
+    "oracle": "400.1919"
+  },
+  "record": {
+    "agreement": {
+      "id": "casper-demo-contested-20261114055208",
+      "chain": "casper",
+      "coin": "CSPR",
+      "item": "e-bike, Saturday rental (Kaution)",
+      "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+      "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+      "deposit_xrp": 50,
+      "tranche_xrp": 10,
+      "due_at": "2026-11-14T05:54:38.913Z",
+      "grace_s": 0,
+      "dispute_window_s": 180,
+      "late_fee_xrp_per_hour": 10,
+      "late_fee_cap_xrp": 30,
+      "accessories": [
+        {
+          "name": "lock",
+          "value_xrp": 5
+        },
+        {
+          "name": "charger",
+          "value_xrp": 15
+        }
+      ],
+      "cleaning_fee_xrp": 10,
+      "arbiter": {
+        "name": "Crypto Club Vienna desk",
+        "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+      }
+    },
+    "tranches": [
+      {
+        "i": 0,
+        "condition": "A0258020A8ACD51121942B0B4E46D777C4DFF14880544C95474E4CC5C579089A142B5FED810120",
+        "sequence": "casper-demo-contested-20261114055208/0",
+        "status": "to_lender",
+        "tx": {
+          "create": "d34fef7ea3391424b68c38a31f1220976a7a16b707c3f865f9a2744f388972dd",
+          "finish": "a3bb6aa58c6e55c5caef332cc5ca210858df344ce5787755bebf6625a635c509"
+        }
+      },
+      {
+        "i": 1,
+        "condition": "A02580202D3577656969A7773A2440702C3FE8EE012CA969F76F593A9E618AA07F933842810120",
+        "sequence": "casper-demo-contested-20261114055208/1",
+        "status": "to_lender",
+        "tx": {
+          "create": "34fc7d02f431edfe57c15839153c875a34817a385ce4dd6db183d3fd995d4473",
+          "finish": "99f134bd637b77b4430d66b622ed2ec506cebb64c97c08455daa0e6df79f62e3"
+        }
+      },
+      {
+        "i": 2,
+        "condition": "A025802011F293CD9DB6908D12A8B386E545EA118F2DCE46253F80E5D3F7653BF78A8119810120",
+        "sequence": "casper-demo-contested-20261114055208/2",
+        "status": "to_renter",
+        "tx": {
+          "create": "43e6ce30605f0c6042187eaf976f0395551bd126d644b8ed95d209fcf59a8951",
+          "cancel": "a44eae7c1febb2a5a224f8bbc6369d22fd3ebbfe223e9f744e1e1a061257f38d"
+        }
+      },
+      {
+        "i": 3,
+        "condition": "A02580202D0E9F482F04747FB0EE8622908BE8CD452E6140485384A0B79549B302465697810120",
+        "sequence": "casper-demo-contested-20261114055208/3",
+        "status": "to_renter",
+        "tx": {
+          "create": "41a2134c45236cfcf40ed2f4c25bcc8fe8646f85d6560f3d7e4167b5eeae9222",
+          "cancel": "1a5ad6f328e65201ce82e98bc440b4b9ed4de192e6539351842e7ef026893864"
+        }
+      },
+      {
+        "i": 4,
+        "condition": "A0258020E88C133A24C8D34328CF30E3ECBBB90ADDF143A37C3CD0458DF3E0346EEFE646810120",
+        "sequence": "casper-demo-contested-20261114055208/4",
+        "status": "to_renter",
+        "tx": {
+          "create": "b5b1e34c1c3e6dcc8a5e84601941752e517258b7d345cb0009a7faf3f874f708",
+          "cancel": "6428d3efcb7983f0b9abf07424984443e7e36543c0abb7972baf96691c6ac3c6"
+        }
+      }
+    ],
+    "report": {
+      "returned_at": "2026-11-14T05:52:53.320Z",
+      "damage": [
+        {
+          "desc": "scratched frame",
+          "claimed_xrp": 30,
+          "renter_agrees": false
+        }
+      ],
+      "filed_by": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae"
+    },
+    "arbiter": {
+      "for": "scratched frame",
+      "damage_xrp": 20,
+      "by": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457",
+      "signed_at": "2026-11-14T05:53:01.323Z"
+    },
+    "verdicts": [
+      {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "awaiting_arbiter",
+        "now": "2026-11-14T05:52:53.320Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [
+          {
+            "what": "damage:scratched frame",
+            "to": "Crypto Club Vienna desk",
+            "claimed_drops": 30000000,
+            "deadline": "2026-11-14T05:57:38.913Z",
+            "reason": "renter does not agree; silence before cancel_after = refund"
+          }
+        ],
+        "notes": []
+      },
+      {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "settled",
+        "now": "2026-11-14T05:53:01.323Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 20000000,
+        "tranches_to_lender": 2,
+        "tranches_to_renter": 3,
+        "refund_drops": 30000000,
+        "lines": [
+          {
+            "kind": "damage",
+            "drops": 20000000,
+            "basis": "\"scratched frame\" set by arbiter Crypto Club Vienna desk at 20 XRP (claim capped)"
+          }
+        ],
+        "escalations": [],
+        "notes": []
+      },
+      {
+        "id": "casper-demo-contested-20261114055208",
+        "status": "expired_refund",
+        "now": "2026-11-14T05:57:52.344Z",
+        "deadline": "2026-11-14T05:54:38.913Z",
+        "cancel_after": "2026-11-14T05:57:38.913Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": [
+          "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+        ]
+      }
+    ],
+    "created_at": "2026-11-14T05:52:13.978Z"
+  },
+  "duration_s": 380
+}

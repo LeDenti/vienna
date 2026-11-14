@@ -4,3 +4,4 @@ state/*.wallets.json
 .env
 video/.venv/
 video/build/
+contracts/casper/vienna_escrow/target/

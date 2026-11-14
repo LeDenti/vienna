@@ -1,0 +1,16 @@
+[package]
+name = "vienna_lock"
+version = "0.1.0"
+edition = "2021"
+description = "session code run by the renter: lock one tranche (open the record, fund its purse, confirm)"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+path = "src/lib.rs"
+
+[dependencies]
+casper-contract = { version = "5.1.1", default-features = false }
+wee_alloc = "0.4.5"
+casper-types = "6.1.0"

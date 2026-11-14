@@ -19,3 +19,17 @@ export function newCondition(preimage = randomBytes(32)) {
 
 /** Minimum fee of a conditional EscrowFinish: 330 drops + 10 per 16 bytes of fulfillment, plus a margin. */
 export const finishFeeDrops = (fulfillmentHex) => String(330 + 10 * Math.ceil(fulfillmentHex.length / 2 / 16) + 100);
+
+/** The sha256 digest inside a DER condition (A0 25 80 20 <32 bytes> 81 01 <cost>): what ledgers without crypto-conditions store. */
+export const digestOf = (conditionHex) => {
+  const b = Buffer.from(conditionHex, "hex");
+  if (b[0] !== 0xa0 || b[2] !== 0x80 || b[3] !== 0x20) throw new Error("not a PREIMAGE-SHA-256 condition");
+  return b.subarray(4, 36);
+};
+
+/** The raw preimage inside a DER fulfillment (A0 <len> 80 <n> <preimage>): what those ledgers' finish carries. */
+export const preimageOf = (fulfillmentHex) => {
+  const b = Buffer.from(fulfillmentHex, "hex");
+  if (b[0] !== 0xa0 || b[2] !== 0x80) throw new Error("not a PREIMAGE-SHA-256 fulfillment");
+  return b.subarray(4, 4 + b[3]);
+};

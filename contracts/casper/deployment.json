@@ -1,0 +1,20 @@
+{
+  "chain": "casper-test",
+  "rpc": "https://node.testnet.casper.network/rpc",
+  "contract_hash": "hash-bb8a6f16da3e03bcf4f4eeca0e837e248b1e119dc8af807582acdcb3f0dc68da",
+  "installer": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457",
+  "install_deploy": "73e14cfc70e6a5e6d78cd86cf68bbe3b2c1c1299857cdf12ac056b0f01c6b761",
+  "explorer": "https://testnet.cspr.live/deploy/73e14cfc70e6a5e6d78cd86cf68bbe3b2c1c1299857cdf12ac056b0f01c6b761",
+  "block": 9826086,
+  "cost_motes": "100000000000",
+  "consumed_motes": "74964132477",
+  "limit_motes": "100000000000",
+  "charged_motes": "81223099358",
+  "commit": "208f924ffb21ca0fc3c1c98adae2459c075c97b3",
+  "tag": "casper-contract-v1",
+  "wasm_sha256": {
+    "vienna_escrow": "2e1b870b0db1ff51f7dc754f3d48ff67ece9cd5eae24ee6439e82d2f5fcc8679",
+    "vienna_lock": "9652ac5f4e33994e5d653a27476a1967b4c89d558446151d8b83bb982c730950"
+  },
+  "installed_at": "2026-11-14T05:30:05.118Z"
+}

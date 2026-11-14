@@ -27,6 +27,9 @@ yet.
   destination of a payment without a signature, so "anyone can finish, anyone
   can refund" becomes "the lender finishes, the renter refunds" (§7). The
   plan says where a port bends a rule rather than pretending it does not.
+- This section was written before any port existed. Casper has since been
+  built on its branch (§8); the bar above did not move, and the README lists
+  it only with its three measured runs.
 
 ## 1. What does not change
 
@@ -241,47 +244,107 @@ signs changes).
 
 **Estimate:** 5 to 6 hours.
 
-## 8. Casper (last)
+## 8. Casper (built first, on the `casper` branch)
 
-**Starting point.** None: no contract, no toolchain on the build machine.
+**Starting point.** No contract and no toolchain: rustup and cargo were
+present, nothing Casper-specific was. (Deviation: `casper-client` 5.0.1 turned
+out to be installed already; it was used only to double-check deploys.)
 
-**Work.**
-1. Toolchain: Rust `wasm32-unknown-unknown`, `casper-contract` /
-   `casper-types` crates, `casper-client`; a testnet account funded by the
-   cspr.live testnet faucet.
-2. Contract `vienna_escrow` (one session + one stored contract):
-   - `lock(id, lender, cancel_after_ms, condition: [u8;32])` payable: moves the
-     attached CSPR into a purse created per tranche (`system::create_purse`),
-     stores `{renter, lender, amount, cancel_after, condition, status}` under
-     a named key / dictionary entry `tranche:<renter>:<id>`;
-   - `finish(id, preimage)`: `sha2::Sha256` over the preimage (no_std) must
-     equal `condition`, `runtime::get_blocktime()` must be `< cancel_after`,
-     then `system::transfer_from_purse_to_account(purse, lender, amount)`;
-   - `cancel(id)`: `get_blocktime() >= cancel_after`, transfer back to the
-     renter. Both entry points are public (no caller check).
-3. `src/ledger/casper.mjs` on `casper-js-sdk`: deploys per tranche, wait for
-   execution results, read the dictionary for `openEscrows`.
-4. Gas: Casper charges the full payment amount of a deploy, not the gas used.
-   The README reports the real cost per act; this is the main UX limit of
-   this port.
-5. Measures: `measures/casper-<id>.json`, links
-   `https://testnet.cspr.live/deploy/<hash>`.
+**Planned work, and what was actually done.**
+1. Toolchain: as planned, plus two things the plan did not foresee.
+   `casper-contract` 5.1.1 with its default `no-std-helpers` feature needs
+   nightly Rust; it is built without default features, with `wee_alloc` as the
+   allocator and the crate's own panic handler. And `rustc` 1.99 emits
+   bulk-memory and sign-extension instructions, even inside the precompiled
+   `core`, that `casper-wasmi` refuses at install
+   (`Bulk memory operations are not supported`); `contracts/casper/build.sh`
+   lowers them with binaryen `wasm-opt` and validates the wasm as MVP-only.
+   Testnet accounts are generated locally (`state/demo.casper.wallets.json`,
+   git-ignored); the cspr.live faucet needs a human and a wallet, so the
+   oracle key was funded by a transfer from the author's wallet.
+2. Contract `vienna_escrow`: the four promises hold (`finish` needs
+   `sha256(preimage) == condition` and `blocktime < cancel_after`; `cancel`
+   needs `blocktime >= cancel_after`; both public, no caller check; locked
+   package, no access key kept). Two deviations in the mechanics:
+   - **`lock` is not "payable".** VM1 contracts cannot receive CSPR with a
+     call, and a purse read from a dictionary carries no access rights. So
+     `lock` creates the purse itself (one `create_purse`, 2.5 CSPR of gas on
+     this testnet), keeps its URef in a contract named key `p:<renter>:<id>`,
+     records the tranche as *pending*, and returns the purse with **ADD rights
+     only**; the renter's session code `vienna_lock` transfers the amount into
+     it and calls `confirm`, which checks the purse balance and marks the
+     tranche *locked*. One deploy for the renter, atomic, and a single purse
+     creation instead of two.
+   - An `init` entry point creates the two dictionaries in the contract's own
+     context during the install deploy, so the installer never holds their
+     write rights; a per-renter `index` dictionary gives `openEscrows`
+     something to iterate.
+   Unit tests run on the real execution engine with a controlled block time
+   (`casper-engine-test-support`): finish too late, cancel too early, wrong
+   secret, double spend, plus the two happy paths and the absence of any
+   access key after install. Seven tests, all green.
+3. `src/ledger/casper.mjs` on `casper-js-sdk` 5.3.1: as planned. One deploy
+   per tranche for each of lock, finish, cancel; `openEscrows` reads the
+   contract's named keys and dictionaries; `waitPast` watches block
+   timestamps. The condition stays the XRPL PREIMAGE-SHA-256 DER structure
+   inside vienna; the adapter sends the 32-byte digest it contains and, on
+   finish, the raw 32-byte preimage (tested in `test/condition.test.mjs`).
+4. Gas: the plan said "Casper charges the full payment amount". Wrong for
+   this testnet: its chainspec has `pricing_handling = payment_limited`,
+   `refund_handling = refund 75/100`, `fee_handling = burn`, so a deploy is
+   charged what it consumed plus a quarter of what it reserved and did not
+   use. The expensive items are fixed host costs, not computation:
+   `create_purse` 2.5 CSPR, `transfer_from_purse_to_account` 2.5 CSPR,
+   `call_contract` 0.3 CSPR, storage about 1.12 CSPR per kB (the 50 kB
+   contract costs about 56 CSPR to install). Real numbers in the README.
+5. Measures: as planned, `measures/casper-<id>.json`, links
+   `https://testnet.cspr.live/deploy/<hash>`. Done.
 
-**Done when:** same criteria. Limits: contract upgradeability (use an
-immutable contract installed without a package upgrade group), deploy cost.
+   Two more things only the live chain taught. The SDK copies the contract
+   hash as given into `StoredContractByHash.hash`; the node wants the bare
+   64-hex form (what `casper-client` sends) and answers `Invalid params`
+   otherwise, which the engine tests could not show. And the execution
+   result's `cost` is the payment limit, not the charge: the adapter computes
+   `charged = limit − 75 % × (limit − consumed)` and the measures sum that.
+6. Demo clocks: five sequential deploys at about 7 s each do not fit in XRPL's
+   25 s due date, so each adapter exports its own `DEMO_CLOCKS` (Casper: due
+   in 150 s, dispute window 180 s; XRPL unchanged). The rules do not change.
 
-**Estimate:** 6 hours or more; the first ledger where the contract is written
-from scratch and the toolchain is not installed.
+**Measured** (14 November 2026, `casper-test`, protocol 2.2.4; every hash in
+`measures/casper-*.json` and the README). Install: 74.964 CSPR consumed,
+81.223 charged. Per act, charged: lock 4.79 to 4.81 CSPR, finish 3.06 to 3.07,
+cancel 3.06 to 3.07. The `late` run (5 locks, 2 finishes, 3 cancels) cost
+39.28 CSPR of gas for a 50 CSPR deposit and took 365 s wall time; `clean`
+388 s, `contested` 380 s. The first `late` attempt failed on the hash spelling
+above after its five locks had landed; its tranches were refunded by `cancel`
+after `cancel_after` by the same code anyone could run, which is the refund
+promise working as written, and that attempt is not counted as a measure.
+
+**Time.** Contract, session code, engine tests, adapter and `VIENNA_CHAIN`
+wiring: about one hour (the first commit on the branch is 55 minutes after the
+plan commit, on an otherwise idle machine where the crates were cached). Then
+about six hours blocked overnight on funding: the testnet faucet needs a
+human, a Casper Wallet account and a transfer. Install plus the failed attempt,
+the fix, the refund and the three measured runs: 30 minutes. The 6-hour
+estimate was wrong in both directions: the code was faster, the money slower.
+
+**Done when:** same criteria as the other ledgers. The limits that remain are
+the ones the plan named (funds held by a contract rather than the ledger,
+install cost charged once) plus the per-act gas floor the testnet chainspec
+sets, which no contract design can go below.
 
 ## 9. Order, branches, and how the README grows
 
-- Order: Solana, NEAR (both have a deployed prior contract), then Ethereum
-  (shortest from scratch, immutable), then Bitcoin (one rule bends), then
-  Casper (no toolchain). One branch per ledger: `solana`, `near`, `ethereum`,
-  `bitcoin`, `casper`. Each is merged into `main` only when its "done when"
-  list is complete.
+- Planned order: Solana, NEAR (both have a deployed prior contract), then
+  Ethereum (shortest from scratch, immutable), then Bitcoin (one rule bends),
+  then Casper (no toolchain). Actual order: Casper went first, because it was the port asked for
+  first (§8). One branch per ledger: `solana`, `near`,
+  `ethereum`, `bitcoin`, `casper`. Each is merged into `main` only when its
+  "done when" list is complete.
 - The adapter is chosen by `VIENNA_CHAIN=xrpl|solana|near|ethereum|bitcoin|casper` (default
-  `xrpl`) in `.env`; `bin/vienna.mjs demo` and the dashboard read it.
+  `xrpl`) in `.env`; `src/ledger.mjs` imports `src/ledger/<chain>.mjs`,
+  `bin/vienna.mjs demo` and the dashboard read it. Each agreement records
+  `chain` and `coin`, so records of different ledgers coexist in `state/`.
 - The README keeps one "Measured on …" table per ledger and one limits
   paragraph per ledger. No port is listed until it has its three measured runs.
 
