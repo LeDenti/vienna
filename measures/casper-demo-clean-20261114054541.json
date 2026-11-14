@@ -1,0 +1,334 @@
+{
+  "scenario": "clean",
+  "id": "casper-demo-clean-20261114054541",
+  "chain": "casper",
+  "coin": "CSPR",
+  "wallets": {
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "oracle": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+  },
+  "balances_before": {
+    "renter": "161.0374",
+    "lender": "30",
+    "oracle": "448.893"
+  },
+  "agreement": {
+    "id": "casper-demo-clean-20261114054541",
+    "chain": "casper",
+    "coin": "CSPR",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-14T05:48:11.152Z",
+    "grace_s": 0,
+    "dispute_window_s": 180,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+    }
+  },
+  "create": [
+    {
+      "label": "lock",
+      "hash": "1fc8b0763c7d534f57f5f8c76ada778ebfc309a7068adec6054b7cac19bf8bc7",
+      "block": 9826204,
+      "cost": "5000000000",
+      "consumed": "4730025014",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/1fc8b0763c7d534f57f5f8c76ada778ebfc309a7068adec6054b7cac19bf8bc7",
+      "charged": "4797518761",
+      "sequence": "casper-demo-clean-20261114054541/0"
+    },
+    {
+      "label": "lock",
+      "hash": "e9939100d3ac0e66f438d3b3f335956a784521d82626354d42c09c323163d8f5",
+      "block": 9826205,
+      "cost": "5000000000",
+      "consumed": "4730025014",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/e9939100d3ac0e66f438d3b3f335956a784521d82626354d42c09c323163d8f5",
+      "charged": "4797518761",
+      "sequence": "casper-demo-clean-20261114054541/1"
+    },
+    {
+      "label": "lock",
+      "hash": "e24020a16a610c6e30df281a6e1beb3aa1f95ac7ef6b788e55e0616668715244",
+      "block": 9826206,
+      "cost": "5000000000",
+      "consumed": "4730025014",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/e24020a16a610c6e30df281a6e1beb3aa1f95ac7ef6b788e55e0616668715244",
+      "charged": "4797518761",
+      "sequence": "casper-demo-clean-20261114054541/2"
+    },
+    {
+      "label": "lock",
+      "hash": "d8e8a921c57ad201d91c57da4d70a540e660d4135e4d54ebd44cf839fe72e6a3",
+      "block": 9826207,
+      "cost": "5000000000",
+      "consumed": "4730025014",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/d8e8a921c57ad201d91c57da4d70a540e660d4135e4d54ebd44cf839fe72e6a3",
+      "charged": "4797518761",
+      "sequence": "casper-demo-clean-20261114054541/3"
+    },
+    {
+      "label": "lock",
+      "hash": "1548e6668f44a32ce7e48d2f66121e6680b84230d5ecaf871be2185a763d79df",
+      "block": 9826208,
+      "cost": "5000000000",
+      "consumed": "4730025014",
+      "limit": "5000000000",
+      "explorer": "https://testnet.cspr.live/deploy/1548e6668f44a32ce7e48d2f66121e6680b84230d5ecaf871be2185a763d79df",
+      "charged": "4797518761",
+      "sequence": "casper-demo-clean-20261114054541/4"
+    }
+  ],
+  "finish": [],
+  "cancel": [
+    {
+      "label": "cancel",
+      "hash": "ded3d146300d745de18f2947a5121dc1af81ba3cf34b6388cb62a66315b1a48c",
+      "block": 9826246,
+      "cost": "3500000000",
+      "consumed": "2916762605",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/ded3d146300d745de18f2947a5121dc1af81ba3cf34b6388cb62a66315b1a48c",
+      "charged": "3062571954",
+      "sequence": "casper-demo-clean-20261114054541/0"
+    },
+    {
+      "label": "cancel",
+      "hash": "5e95825f9c5818412dca4377fb848780fb539093e90c7f5417d66fdc202fc7e1",
+      "block": 9826247,
+      "cost": "3500000000",
+      "consumed": "2916762605",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/5e95825f9c5818412dca4377fb848780fb539093e90c7f5417d66fdc202fc7e1",
+      "charged": "3062571954",
+      "sequence": "casper-demo-clean-20261114054541/1"
+    },
+    {
+      "label": "cancel",
+      "hash": "98ee75866235e7a9cb183a48c6960dca9137ebb8623602864750a212d86a9058",
+      "block": 9826248,
+      "cost": "3500000000",
+      "consumed": "2916762605",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/98ee75866235e7a9cb183a48c6960dca9137ebb8623602864750a212d86a9058",
+      "charged": "3062571954",
+      "sequence": "casper-demo-clean-20261114054541/2"
+    },
+    {
+      "label": "cancel",
+      "hash": "cfcad5860695f869c6a52b4f6b6fabbe9e9d09cd313739be37cad59f1414b0e4",
+      "block": 9826249,
+      "cost": "3500000000",
+      "consumed": "2916762605",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/cfcad5860695f869c6a52b4f6b6fabbe9e9d09cd313739be37cad59f1414b0e4",
+      "charged": "3062571954",
+      "sequence": "casper-demo-clean-20261114054541/3"
+    },
+    {
+      "label": "cancel",
+      "hash": "9197612162fd2f44addf71849ea697d0e4901a42edc5b3620e04e4af53d60935",
+      "block": 9826250,
+      "cost": "3500000000",
+      "consumed": "2916762605",
+      "limit": "3500000000",
+      "explorer": "https://testnet.cspr.live/deploy/9197612162fd2f44addf71849ea697d0e4901a42edc5b3620e04e4af53d60935",
+      "charged": "3062571954",
+      "sequence": "casper-demo-clean-20261114054541/4"
+    }
+  ],
+  "verdicts": [
+    {
+      "label": "return report: on time, complete",
+      "verdict": {
+        "id": "casper-demo-clean-20261114054541",
+        "status": "returned_clean",
+        "now": "2026-11-14T05:46:21.286Z",
+        "deadline": "2026-11-14T05:48:11.152Z",
+        "cancel_after": "2026-11-14T05:51:11.152Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": []
+      }
+    },
+    {
+      "label": "after cancel_after",
+      "verdict": {
+        "id": "casper-demo-clean-20261114054541",
+        "status": "expired_refund",
+        "now": "2026-11-14T05:51:19.560Z",
+        "deadline": "2026-11-14T05:48:11.152Z",
+        "cancel_after": "2026-11-14T05:51:11.152Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": [
+          "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+        ]
+      }
+    }
+  ],
+  "open_escrows_left": 0,
+  "cost_units": {
+    "lock": "23987593805",
+    "finish": "0",
+    "cancel": "15312859770",
+    "unit": "1e-9 CSPR"
+  },
+  "balances": {
+    "renter": "137.0499",
+    "lender": "30",
+    "oracle": "433.5802"
+  },
+  "record": {
+    "agreement": {
+      "id": "casper-demo-clean-20261114054541",
+      "chain": "casper",
+      "coin": "CSPR",
+      "item": "e-bike, Saturday rental (Kaution)",
+      "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+      "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+      "deposit_xrp": 50,
+      "tranche_xrp": 10,
+      "due_at": "2026-11-14T05:48:11.152Z",
+      "grace_s": 0,
+      "dispute_window_s": 180,
+      "late_fee_xrp_per_hour": 10,
+      "late_fee_cap_xrp": 30,
+      "accessories": [
+        {
+          "name": "lock",
+          "value_xrp": 5
+        },
+        {
+          "name": "charger",
+          "value_xrp": 15
+        }
+      ],
+      "cleaning_fee_xrp": 10,
+      "arbiter": {
+        "name": "Crypto Club Vienna desk",
+        "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+      }
+    },
+    "tranches": [
+      {
+        "i": 0,
+        "condition": "A025802091481D4D08D8723CE42BDE2EFAF9552AA02EF8BDD0C8C45141AED2EF0FFF2E0B810120",
+        "sequence": "casper-demo-clean-20261114054541/0",
+        "status": "to_renter",
+        "tx": {
+          "create": "1fc8b0763c7d534f57f5f8c76ada778ebfc309a7068adec6054b7cac19bf8bc7",
+          "cancel": "ded3d146300d745de18f2947a5121dc1af81ba3cf34b6388cb62a66315b1a48c"
+        }
+      },
+      {
+        "i": 1,
+        "condition": "A025802080FBF554A68E6D019E4B43DBF5595672D04C3C42FA2B015737BAB1A1672FF7E3810120",
+        "sequence": "casper-demo-clean-20261114054541/1",
+        "status": "to_renter",
+        "tx": {
+          "create": "e9939100d3ac0e66f438d3b3f335956a784521d82626354d42c09c323163d8f5",
+          "cancel": "5e95825f9c5818412dca4377fb848780fb539093e90c7f5417d66fdc202fc7e1"
+        }
+      },
+      {
+        "i": 2,
+        "condition": "A0258020BDCEA8750CB0B77460FAB430830FE7E27390D3E4FB772A6194625D863BB6CE90810120",
+        "sequence": "casper-demo-clean-20261114054541/2",
+        "status": "to_renter",
+        "tx": {
+          "create": "e24020a16a610c6e30df281a6e1beb3aa1f95ac7ef6b788e55e0616668715244",
+          "cancel": "98ee75866235e7a9cb183a48c6960dca9137ebb8623602864750a212d86a9058"
+        }
+      },
+      {
+        "i": 3,
+        "condition": "A02580207CB0D0A905FEAF3EDD7B6935D517B5ABF0E7D4BFA31D9AFD8886EFAE3BF2F320810120",
+        "sequence": "casper-demo-clean-20261114054541/3",
+        "status": "to_renter",
+        "tx": {
+          "create": "d8e8a921c57ad201d91c57da4d70a540e660d4135e4d54ebd44cf839fe72e6a3",
+          "cancel": "cfcad5860695f869c6a52b4f6b6fabbe9e9d09cd313739be37cad59f1414b0e4"
+        }
+      },
+      {
+        "i": 4,
+        "condition": "A0258020C478EBF2E92B92EC2C417739607003609C2EB172773A7A760CC2DDB12E15DAF0810120",
+        "sequence": "casper-demo-clean-20261114054541/4",
+        "status": "to_renter",
+        "tx": {
+          "create": "1548e6668f44a32ce7e48d2f66121e6680b84230d5ecaf871be2185a763d79df",
+          "cancel": "9197612162fd2f44addf71849ea697d0e4901a42edc5b3620e04e4af53d60935"
+        }
+      }
+    ],
+    "report": {
+      "returned_at": "2026-11-14T05:46:21.285Z",
+      "filed_by": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae"
+    },
+    "arbiter": null,
+    "verdicts": [
+      {
+        "id": "casper-demo-clean-20261114054541",
+        "status": "returned_clean",
+        "now": "2026-11-14T05:46:21.286Z",
+        "deadline": "2026-11-14T05:48:11.152Z",
+        "cancel_after": "2026-11-14T05:51:11.152Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": []
+      },
+      {
+        "id": "casper-demo-clean-20261114054541",
+        "status": "expired_refund",
+        "now": "2026-11-14T05:51:19.560Z",
+        "deadline": "2026-11-14T05:48:11.152Z",
+        "cancel_after": "2026-11-14T05:51:11.152Z",
+        "retention_drops": 0,
+        "tranches_to_lender": 0,
+        "tranches_to_renter": 5,
+        "refund_drops": 50000000,
+        "lines": [],
+        "escalations": [],
+        "notes": [
+          "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+        ]
+      }
+    ],
+    "created_at": "2026-11-14T05:45:42.461Z"
+  },
+  "duration_s": 388
+}

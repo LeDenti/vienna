@@ -51,3 +51,10 @@ only**, which is how the renter's session funds it without ever being able to ta
 
 Error codes (`User error: n`): 1 AlreadyExists · 2 NotFound · 3 BadStatus · 4 NotFunded · 5 WrongSecret ·
 6 TooLate · 7 TooEarly · 8 BadAmount · 9 BadId · 10 BadKey · 11 AlreadyInitialised.
+
+## Calling it from JavaScript
+
+`casper-js-sdk` 5.3.1 passes the contract hash into `StoredContractByHash.hash` as given; the node
+accepts only the bare 64-hex form there (what `casper-client` emits) and answers `Invalid params` to
+`hash-…`. The execution result's `cost` is the payment limit; the charge on this testnet is
+`limit − 75 % × (limit − consumed)`. Both are handled in `src/ledger/casper.mjs`.

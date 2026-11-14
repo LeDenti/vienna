@@ -1,0 +1,140 @@
+{
+  "agreement": {
+    "id": "casper-demo-late-20261114053936",
+    "chain": "casper",
+    "coin": "CSPR",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-14T05:42:06.245Z",
+    "grace_s": 0,
+    "dispute_window_s": 180,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+    }
+  },
+  "tranches": [
+    {
+      "i": 0,
+      "condition": "A0258020E8EE7D5B163E5C936F59E58FF096F556B798610405F16C8D1179143D92C16A3D810120",
+      "sequence": "casper-demo-late-20261114053936/0",
+      "status": "to_lender",
+      "tx": {
+        "create": "be3834710b2c1e787dfda40663b1de90bbc484961942da6e469dbb2850aa790c",
+        "finish": "88b5602f42ec4286343fd6aaaf12cff72b6bb479642cea939212a459739be3c0"
+      }
+    },
+    {
+      "i": 1,
+      "condition": "A02580200C5C43AA2784FD82CF5940D26554FFB686CBFD6E7AB7D4F48CE3A38D7E47C945810120",
+      "sequence": "casper-demo-late-20261114053936/1",
+      "status": "to_lender",
+      "tx": {
+        "create": "de91893b1f50dd62cd826c342a196897090dd41c8303959e7d8067b49b662348",
+        "finish": "3869eaea74c255b85f4c0b3e37d155d24abf797caf58490f82cbff94d3c02753"
+      }
+    },
+    {
+      "i": 2,
+      "condition": "A0258020F0FB6AA47C8AAE36660876A44D7CB75864A3180171FB9D1184F2B54F279E9859810120",
+      "sequence": "casper-demo-late-20261114053936/2",
+      "status": "to_renter",
+      "tx": {
+        "create": "f7948fa9bb4add81e78572b8e09cfd594dd297a5a248117896e81b230bdc2cb4",
+        "cancel": "9d4747ca130d22bb16d0a1bb85d7ffecc939da79ee83bbbb5e0ad0c60b20d094"
+      }
+    },
+    {
+      "i": 3,
+      "condition": "A0258020544D031F48C81D6F8AE8DD7E01B82751676F52D3DDFC8228903B80FF8B09206A810120",
+      "sequence": "casper-demo-late-20261114053936/3",
+      "status": "to_renter",
+      "tx": {
+        "create": "20bac3b147ea88648447007cedb72372582d45b47d6f53dad6c52e98d33c6bab",
+        "cancel": "dabcfff461dc2c9b8f29145412fa89ce3a4472422c05c533f9ebb8ca9af41d4d"
+      }
+    },
+    {
+      "i": 4,
+      "condition": "A02580201B7FFBFD883A88F69BFAC220203D84D13CB85407FCF6E1B43BD8338E32AD2B83810120",
+      "sequence": "casper-demo-late-20261114053936/4",
+      "status": "to_renter",
+      "tx": {
+        "create": "0d20d9d3e2ed70060c304a53f45e4c516659be0c3c597b318d525f3b3a661345",
+        "cancel": "c0296af96812f0394d17016f68ee40f6fd7d8787d8ba928ea46c70dbfb247e96"
+      }
+    }
+  ],
+  "report": {
+    "returned_at": "2026-11-14T05:42:24.261Z",
+    "missing": [
+      "charger",
+      "basket"
+    ],
+    "filed_by": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae"
+  },
+  "arbiter": null,
+  "verdicts": [
+    {
+      "id": "casper-demo-late-20261114053936",
+      "status": "settled",
+      "now": "2026-11-14T05:42:24.262Z",
+      "deadline": "2026-11-14T05:42:06.245Z",
+      "cancel_after": "2026-11-14T05:45:06.245Z",
+      "retention_drops": 20000000,
+      "tranches_to_lender": 2,
+      "tranches_to_renter": 3,
+      "refund_drops": 30000000,
+      "lines": [
+        {
+          "kind": "late",
+          "drops": 10000000,
+          "basis": "1 h late x 10000000 drops/h, cap 30000000"
+        },
+        {
+          "kind": "missing",
+          "drops": 15000000,
+          "basis": "accessory \"charger\" priced in agreement"
+        }
+      ],
+      "escalations": [],
+      "notes": [
+        "missing \"basket\" is not in the agreement: worth 0 (not found beats guessed)",
+        "rounded down from 25000000 to 20000000 drops (whole tranches, renter never overpays)"
+      ]
+    },
+    {
+      "id": "casper-demo-late-20261114053936",
+      "status": "expired_refund",
+      "now": "2026-11-14T05:45:10.664Z",
+      "deadline": "2026-11-14T05:42:06.245Z",
+      "cancel_after": "2026-11-14T05:45:06.245Z",
+      "retention_drops": 0,
+      "tranches_to_lender": 0,
+      "tranches_to_renter": 5,
+      "refund_drops": 50000000,
+      "lines": [],
+      "escalations": [],
+      "notes": [
+        "cancel_after passed: the escrows can be cancelled by anyone, the deposit returns in full"
+      ]
+    }
+  ],
+  "created_at": "2026-11-14T05:39:37.434Z"
+}

@@ -1,0 +1,125 @@
+{
+  "agreement": {
+    "id": "casper-demo-late-20261114053255",
+    "chain": "casper",
+    "coin": "CSPR",
+    "item": "e-bike, Saturday rental (Kaution)",
+    "renter": "016730125b7597bb51b19f76aa0394450e00c0ecc58d3392d41a8df8c411c2b15e",
+    "lender": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae",
+    "deposit_xrp": 50,
+    "tranche_xrp": 10,
+    "due_at": "2026-11-14T05:35:25.830Z",
+    "grace_s": 0,
+    "dispute_window_s": 180,
+    "late_fee_xrp_per_hour": 10,
+    "late_fee_cap_xrp": 30,
+    "accessories": [
+      {
+        "name": "lock",
+        "value_xrp": 5
+      },
+      {
+        "name": "charger",
+        "value_xrp": 15
+      }
+    ],
+    "cleaning_fee_xrp": 10,
+    "arbiter": {
+      "name": "Crypto Club Vienna desk",
+      "address": "0153ee9b70d7052bacdfc7437f3d502e3b755b2c78a6df5b76f5698bdff55ab457"
+    }
+  },
+  "tranches": [
+    {
+      "i": 0,
+      "condition": "A0258020E0DEE699FCAD0C5A3BDA2335CE349F1CA33247B0E6602577EB5E05EBA8CD9383810120",
+      "sequence": "casper-demo-late-20261114053255/0",
+      "status": "to_renter",
+      "tx": {
+        "create": "3e490f8d9fb99c990841510a40347eba668df3e3609d53753799a31e072e8a08",
+        "cancel": "ce60abe5af42c1247e16d0eb74b1cc1848f12d6a0dfd9e968a22afbaa8e1c317"
+      }
+    },
+    {
+      "i": 1,
+      "condition": "A02580200D30516C8AFE10F708E92DA32EC5A8964A76A6EB64930C33CE3228CA5198372E810120",
+      "sequence": "casper-demo-late-20261114053255/1",
+      "status": "to_renter",
+      "tx": {
+        "create": "6377641ca1cc0f9c295ae7414cedb5a4752ef4222d8eb1d0c5dbc5d914b4a2ba",
+        "cancel": "69f3b1a7dfe06133a985cd740b840b852d18cf4c49258122feb9f4aa8d581eb7"
+      }
+    },
+    {
+      "i": 2,
+      "condition": "A025802025D9AE48F0EE43CFF58F6847DF6B2909449751CAAD94D893A3F45BFA4270D022810120",
+      "sequence": "casper-demo-late-20261114053255/2",
+      "status": "to_renter",
+      "tx": {
+        "create": "4153e693298b5184bab4ab1c1321eeaa3ab06b098aabb8ed2256e17cdcfabf42",
+        "cancel": "3d3b6454f58aec347da24bca58f71e9829138bcbda93eac9d3495af3606428c7"
+      }
+    },
+    {
+      "i": 3,
+      "condition": "A0258020026F4EEE3DEA6F7A738AB3C2BBACE59B39BAB115966E6E752BE15F27F6B16E55810120",
+      "sequence": "casper-demo-late-20261114053255/3",
+      "status": "to_renter",
+      "tx": {
+        "create": "67fe89528416311b665cef45f57ebeb3d854bf2aa3f4112bad199f18f635c3d7",
+        "cancel": "799140f55a87307b2151c84f8f772184b008e505fbd1ca045f5d22700a19bc46"
+      }
+    },
+    {
+      "i": 4,
+      "condition": "A0258020694921F154581F463EC8137B301921087A890ABA25877DD457A6F5F96F2E68FF810120",
+      "sequence": "casper-demo-late-20261114053255/4",
+      "status": "to_renter",
+      "tx": {
+        "create": "601e5d5d140c2090f4830b0f161cb8428773edc6d6438a8b476393b68eb1cf5a",
+        "cancel": "724c89ccca36d029a99a4a93b1836d9da94aaffe9581a18960f1f46ab7a29518"
+      }
+    }
+  ],
+  "report": {
+    "returned_at": "2026-11-14T05:35:43.922Z",
+    "missing": [
+      "charger",
+      "basket"
+    ],
+    "filed_by": "01edb8c5eb956b8853aeb406725aaab199308d077f13901f94ed5c764b489a07ae"
+  },
+  "arbiter": null,
+  "verdicts": [
+    {
+      "id": "casper-demo-late-20261114053255",
+      "status": "settled",
+      "now": "2026-11-14T05:35:43.923Z",
+      "deadline": "2026-11-14T05:35:25.830Z",
+      "cancel_after": "2026-11-14T05:38:25.830Z",
+      "retention_drops": 20000000,
+      "tranches_to_lender": 2,
+      "tranches_to_renter": 3,
+      "refund_drops": 30000000,
+      "lines": [
+        {
+          "kind": "late",
+          "drops": 10000000,
+          "basis": "1 h late x 10000000 drops/h, cap 30000000"
+        },
+        {
+          "kind": "missing",
+          "drops": 15000000,
+          "basis": "accessory \"charger\" priced in agreement"
+        }
+      ],
+      "escalations": [],
+      "notes": [
+        "missing \"basket\" is not in the agreement: worth 0 (not found beats guessed)",
+        "rounded down from 25000000 to 20000000 drops (whole tranches, renter never overpays)"
+      ]
+    }
+  ],
+  "created_at": "2026-11-14T05:32:57.081Z",
+  "aborted": "finish deploys were rejected by the RPC (StoredContractByHash hash spelling); all tranches cancelled back to the renter after cancel_after, not a measured run"
+}
