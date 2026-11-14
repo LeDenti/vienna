@@ -132,3 +132,5 @@ export async function loadWallets(client) {
   writeFileSync(WALLETS_FILE, JSON.stringify({ renter: renter.seed, lender: lender.seed, oracle: oracle.seed }, null, 2));
   return { renter, lender, oracle };
 }
+/** Demo clocks: an XRPL transaction validates in a few seconds. */
+export const DEMO_CLOCKS = { due_s: 25, dispute_window_s: 75 };

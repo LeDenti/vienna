@@ -32,16 +32,17 @@ async function demo(scenario, n) {
   const client = await L.connect();
   // Three keys: the renter, the lender, the oracle (who also plays the arbiter's clerk here). The adapter funds them.
   const { renter, lender, oracle: orc } = await L.loadWallets(client, log);
-  const bal = async () => ({ renter: L.fmt(await L.balanceUnits(client, renter.address)), lender: L.fmt(await L.balanceUnits(client, lender.address)) });
-  log(`wallets on ${L.CHAIN}`, { renter: renter.address, lender: lender.address, oracle: orc.address }, await bal());
+  const bal = async () => ({ renter: L.fmt(await L.balanceUnits(client, renter.address)), lender: L.fmt(await L.balanceUnits(client, lender.address)), oracle: L.fmt(await L.balanceUnits(client, orc.address)) });
+  const balancesBefore = await bal();
+  log(`wallets on ${L.CHAIN}`, { renter: renter.address, lender: lender.address, oracle: orc.address }, balancesBefore);
 
-  // The agreement, priced BEFORE the key changes hands. Short clocks so the whole year fits in three minutes.
-  const due = new Date(T0 + 25_000).toISOString();
+  // The agreement, priced BEFORE the key changes hands. Short clocks so the whole year fits in minutes (per-ledger, see DEMO_CLOCKS).
+  const due = new Date(T0 + L.DEMO_CLOCKS.due_s * 1000).toISOString();
   const id = `${L.CHAIN === "xrpl" ? "" : L.CHAIN + "-"}demo-${scenario}-${new Date(T0).toISOString().replace(/[-:.TZ]/g, "").slice(0, 14)}`;
   // Amounts are in the agreement's coin (XRP on XRPL, CSPR on Casper); the rules count in millionths, whatever the coin.
   const agreement = {
     id, chain: L.CHAIN, coin: L.COIN, item: "e-bike, Saturday rental (Kaution)", renter: renter.address, lender: lender.address,
-    deposit_xrp: 10 * n, tranche_xrp: 10, due_at: due, grace_s: 0, dispute_window_s: 75,
+    deposit_xrp: 10 * n, tranche_xrp: 10, due_at: due, grace_s: 0, dispute_window_s: L.DEMO_CLOCKS.dispute_window_s,
     late_fee_xrp_per_hour: 10, late_fee_cap_xrp: 30,
     accessories: [{ name: "lock", value_xrp: 5 }, { name: "charger", value_xrp: 15 }],
     cleaning_fee_xrp: 10, arbiter: { name: "Crypto Club Vienna desk", address: orc.address },
@@ -57,7 +58,7 @@ async function demo(scenario, n) {
   log(`locked ${locked.length} tranches`, locked.map((l) => l.hash.slice(0, 8)).join(" "), await bal());
 
   // 2. The rental happens. Then the lender files a return report (or the arbiter rules).
-  const measures = { scenario, id, chain: L.CHAIN, coin: L.COIN, wallets: { renter: renter.address, lender: lender.address, oracle: orc.address }, agreement, create: locked, finish: [], cancel: [], verdicts: [] };
+  const measures = { scenario, id, chain: L.CHAIN, coin: L.COIN, wallets: { renter: renter.address, lender: lender.address, oracle: orc.address }, balances_before: balancesBefore, agreement, create: locked, finish: [], cancel: [], verdicts: [] };
   const apply = async (label) => {
     const { verdict, toFinish, toCancel } = oracle.decide(id, Date.now());
     measures.verdicts.push({ label, verdict });
@@ -84,10 +85,10 @@ async function demo(scenario, n) {
     await apply("return report: late, charger missing, 'basket' not in agreement");
   } else if (scenario === "contested") {
     oracle.update(id, (r) => { r.report = { returned_at: new Date().toISOString(), damage: [{ desc: "scratched frame", claimed_xrp: 30, renter_agrees: false }], filed_by: lender.address }; });
-    await apply("return report: damage claimed 30 XRP, renter disagrees");
+    await apply(`return report: damage claimed 30 ${L.COIN}, renter disagrees`);
     await new Promise((r) => setTimeout(r, 8_000));
     oracle.update(id, (r) => { r.arbiter = { for: "scratched frame", damage_xrp: 20, by: orc.address, signed_at: new Date().toISOString() }; });
-    await apply("arbiter verdict: 20 XRP");
+    await apply(`arbiter verdict: 20 ${L.COIN}`);
   } else throw new Error(`unknown scenario ${scenario}`);
 
   // 3. After CancelAfter, whatever is still locked goes back. Anyone may send these; here the oracle does.
@@ -95,9 +96,9 @@ async function demo(scenario, n) {
   await apply("after cancel_after");
   const left = await L.openEscrows(client, renter.address);
   measures.open_escrows_left = left.length;
-  // What the chain charged per act, when the adapter reports it (Casper: the execution result's cost in motes).
-  const sum = (xs) => xs.reduce((a, x) => a + BigInt(x.cost || 0), 0n);
-  if (locked.some((l) => l.cost)) measures.cost_units = { lock: String(sum(locked)), finish: String(sum(measures.finish)), cancel: String(sum(measures.cancel)), unit: `1e-${Math.log10(L.UNIT)} ${L.COIN}` };
+  // What the chain charged per act, when the adapter reports it (Casper: consumed + 25% of the unused limit, in motes).
+  const sum = (xs) => xs.reduce((a, x) => a + BigInt(x.charged ?? x.cost ?? 0), 0n);
+  if (locked.some((l) => l.charged ?? l.cost)) measures.cost_units = { lock: String(sum(locked)), finish: String(sum(measures.finish)), cancel: String(sum(measures.cancel)), unit: `1e-${Math.log10(L.UNIT)} ${L.COIN}` };
   measures.balances = await bal();
   measures.record = oracle.record(id);
   measures.duration_s = Math.round((Date.now() - T0) / 1000);

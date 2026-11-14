@@ -43,8 +43,13 @@ export async function connect(url = RPC_URL) {
   const rpc = new RpcClient(new HttpHandler(url));
   const status = await rpc.getStatus();
   if (status.chainSpecName !== CHAIN_NAME) throw new Error(`rpc is on ${status.chainSpecName}, expected ${CHAIN_NAME}`);
-  return { rpc, url, chainName: status.chainSpecName, contract: contractHash() };
+  return { rpc, url, chainName: status.chainSpecName, contract: contractHash(), disconnect: async () => {} };
 }
+
+/** Demo clocks: a deploy takes 10 to 30 s to execute here, five of them must fit before the due date. */
+export const DEMO_CLOCKS = { due_s: 150, dispute_window_s: 180 };
+/** Testnet chainspec: refund_handling = refund 75/100, so a deploy is charged consumed + 25% of the unused limit. */
+export const REFUND_RATIO = [75n, 100n];
 
 export function contractHash() {
   if (process.env.CASPER_CONTRACT) return process.env.CASPER_CONTRACT;
@@ -108,23 +113,29 @@ function makeDeploy(signer, session, paymentMotes, ttlMs = 30 * 60 * 1000) {
 
 function contractCall(entryPoint, args) {
   const item = new ExecutableDeployItem();
-  item.storedContractByHash = new StoredContractByHash(ContractHash.newContract(contractHash()), entryPoint, Args.fromMap(args));
+  // The node wants the bare 64-hex hash here (as casper-client sends it); the SDK would pass "hash-…" through and get "Invalid params".
+  item.storedContractByHash = new StoredContractByHash(ContractHash.newContract(contractHash().replace(/^(hash|contract)-/, "")), entryPoint, Args.fromMap(args));
   return item;
 }
 
-/** Submit, wait for execution, return {hash, block, cost, consumed, limit, error?}. Throws if the chain reports an error. */
+/** Submit, wait for execution, return {hash, block, cost (= the limit on payment_limited chains), consumed, limit, charged, error?}. Throws if the chain reports an error. */
 export async function send(client, deploy, label, timeoutMs = 240_000) {
   const { deployHash } = await client.rpc.putDeploy(deploy);
   const hash = deployHash.toHex();
   const r = await client.rpc.waitForDeploy(deploy, timeoutMs);
   const raw = r.rawJSON?.execution_info?.execution_result ?? {};
   const v = raw.Version2 ?? raw.Version1?.Success ?? raw.Version1?.Failure ?? raw;
+  const typed = r.executionInfo?.executionResult ?? {}; // the SDK's own parse, as a fallback
   const out = {
     label, hash, block: r.rawJSON?.execution_info?.block_height ?? r.executionInfo?.blockHeight ?? null,
-    cost: String(v.cost ?? ""), consumed: String(v.consumed ?? ""), limit: String(v.limit ?? ""),
+    cost: String(v.cost ?? typed.cost ?? ""), consumed: String(v.consumed ?? typed.consumed ?? ""), limit: String(v.limit ?? typed.limit ?? ""),
     explorer: explorerTx(hash),
   };
-  const error = v.error_message ?? raw.Version1?.Failure?.error_message ?? null;
+  if (out.limit && out.consumed) { // what the account actually paid, once the refund is applied
+    const unused = BigInt(out.limit) - BigInt(out.consumed);
+    out.charged = String(BigInt(out.limit) - (unused * REFUND_RATIO[0]) / REFUND_RATIO[1]);
+  }
+  const error = v.error_message ?? raw.Version1?.Failure?.error_message ?? typed.errorMessage ?? null;
   if (error) { out.error = error; throw Object.assign(new Error(`${label} ${hash}: ${error}`), { result: out }); }
   return out;
 }
